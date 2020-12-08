@@ -15,14 +15,7 @@ getAlbums<-function(id,type="album",market="US",token){
                         "/albums?offset=0&limit=",total,
                         "&album_type=",type,"&market=",market),
                  httr::config(token = token))
-  return(lapply(httr::content(req)$items,
-                function(x) data.frame(
-                  id = x$id,
-                  name = x$name,
-                  album_type = x$album_type,
-                  available_markets = paste(x$available_markets, collapse = ";"),
-                  stringsAsFactors = F)) %>%
-           bind_rows())
+  return(httr::content(req)$items)
 }
 
 
